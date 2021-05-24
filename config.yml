@@ -10,6 +10,10 @@ instance:
   port: 32400
   token: ""
 
+tasks:
+  search_new_episodes:
+    every_x_seconds: 600
+
 categories:
   shows: "Séries TV"
   movies: "Films"

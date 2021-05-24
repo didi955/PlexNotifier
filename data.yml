@@ -1,9 +1,8 @@
 new:
-  movies:
+  movies: null
   shows:
     episodes:
-
 unwatcheds:
-  movies:
+  movies: null
   shows:
-    episodes:
+    episodes: null

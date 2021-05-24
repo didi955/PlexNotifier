@@ -7,6 +7,7 @@ from PlexInstance import PlexInstance
 from Mail import Mail
 import os
 import threading
+import time
 
 
 class PlexNotifier:
@@ -31,31 +32,37 @@ class PlexNotifier:
         self.shows = self.plexinstance.plex.library.section(self.config.getNameShowsCategory())
         self.movies = self.plexinstance.plex.library.section(self.config.getNameMoviesCategory())
         self.searcher = SearcherShows(self.shows)
-        self.new_episodes = self.searcher.searchUnwatchedEpisodes()
+        self.new_episodes = None
         self.task()
 
     def task(self):
-        i = 0
-        for episode in self.new_episodes:
-            i += 1
-            id = self.generateId(episode)
-            self.data.putNewEpisode(id, False)
-            if self.data.getNewEpisodeAlertStatus(id) is False:
-                nb = episode.index
-                show_title = episode.grandparentTitle
-                season_nb = episode.parentIndex
-                season_title = episode.show().originalTitle
-                file_path = episode.media[0].parts[0].file
-                poster_path = os.path.dirname(os.path.dirname(file_path))
-                html_src = '"' + poster_path + '"'
-                for email in self.config.getEmails():
-                    self.mail.sendmail(email,
-                                       "[Plex] Un nouvel épisode est disponible !",
-                                       self.mail.getMailNewEpisodeText(season_nb, show_title),
-                                       self.mail.getMailNewEpisodeHTML(season_nb, show_title))
-                self.data.setNewEpisodeAlertStatus(id, True)
+        self.search_new_Episodes()
 
-        self.data.save()
+    def search_new_Episodes(self):
+        self.new_episodes = self.searcher.searchUnwatchedEpisodes()
+        current_time = round(time.time())
+        while True:
+            if current_time - round(time.time()) == int(self.config.contents['tasks']
+                                                        ['search_new_episodes']['every_x_seconds']):
+                for episode in self.new_episodes:
+                    id = self.generateId(episode)
+                    self.data.putNewEpisode(id, False)
+                    if self.data.getNewEpisodeAlertStatus(id) is False:
+                        nb = episode.index
+                        show_title = episode.grandparentTitle
+                        season_nb = episode.parentIndex
+                        season_title = episode.show().originalTitle
+                        file_path = episode.media[0].parts[0].file
+                        poster_path = os.path.dirname(os.path.dirname(file_path))
+                        html_src = '"' + poster_path + '"'
+                        for email in self.config.getEmails():
+                            self.mail.sendmail(email,
+                                               "[Plex] Un nouvel épisode est disponible !",
+                                               self.mail.getMailNewEpisodeText(season_nb, show_title),
+                                               self.mail.getMailNewEpisodeHTML(season_nb, show_title))
+                        self.data.setNewEpisodeAlertStatus(id, True)
+
+                self.data.save()
 
 
 def startBackground():
@@ -67,6 +74,7 @@ def startBackground():
 
 if __name__ == "__main__":
     thread = threading.Thread(target=startBackground())
+    thread.daemon = True
     thread.start()
     running = True
     while running:
