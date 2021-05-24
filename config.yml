@@ -1,0 +1,19 @@
+smtp:
+  host: "smtp.gmail.com"
+  port: 465
+  mail: ""
+  password: ""
+
+instance:
+  name: "PlexNotifier"
+  ip: ""
+  port: 32400
+  token: ""
+
+categories:
+  shows: "Séries TV"
+  movies: "Films"
+
+emails:
+- client1@gmail.com
+- client2@gmail.com
