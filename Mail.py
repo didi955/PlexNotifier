@@ -19,7 +19,7 @@ class Mail:
         message = MIMEMultipart("alternative")
         message["Subject"] = subject
         message["From"] = self.mail
-        message["To"] = " ,".join(target_mails)
+        message["To"] = self.mail
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(html, "html")
         message.attach(part1)
@@ -28,7 +28,7 @@ class Mail:
         with smtplib.SMTP_SSL(self.smtp_host, self.port, context=context) as server:
             server.login(self.mail, self.password)
             server.sendmail(
-                self.mail, bcc, message.as_string()
+                self.mail, [self.mail] + bcc, message.as_string()
             )
 
     @staticmethod

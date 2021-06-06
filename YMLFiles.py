@@ -59,6 +59,8 @@ class Data:
     def putNewMovie(self, id: str, status: bool):
         if self.contents['new']['movies'] is None:
             self.contents['new']['movies'] = {id: {'sent': status}}
+        elif id not in self.contents['new']['movies']:
+            self.contents['new']['movies'][id] = {'sent': status}
         elif self.contents['new']['movies'][id] is None:
             self.contents['new']['movies'][id] = {'sent': status}
 
