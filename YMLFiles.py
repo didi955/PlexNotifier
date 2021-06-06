@@ -41,6 +41,12 @@ class Configuration:
     def getEmails(self):
         return self.contents['emails']
 
+    def getTheMovieDBAPIKey(self):
+        return self.contents['TheMovieDB']['api_key']
+
+    def getIntervalSeconds(self):
+        return self.contents['tasks']['search_new_episodes']['every_seconds']
+
 
 class Data:
 

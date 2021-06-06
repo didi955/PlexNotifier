@@ -32,13 +32,13 @@ class Mail:
             )
 
     @staticmethod
-    def getMailNewEpisodeHTML(season_nb: int, show_title: str, summary: str) -> str:
+    def getMailNewEpisodeHTML(season_nb: int, show_title: str, summary: str, poster_url) -> str:
         html = """\
                 <html>
                   <body>
-                    <h2>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h2>
-                    <img src="">
-                    <h4>Résumé:</h4>
+                    <h1>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h1>
+                    <img src=" """ + str(poster_url) + """ " alt="poster' width="300" height="300">
+                    <h3>Résumé:</h3>
                     <p>""" + str(summary) + """ <br></p>
                     <p><br>Ne manquez surtout pas la suite !</p> 
                   </body>
@@ -56,13 +56,13 @@ class Mail:
         return text
 
     @staticmethod
-    def getMailNewMovieHTML(movie_title: str, summary: str) -> str:
+    def getMailNewMovieHTML(movie_title: str, summary: str, poster_url) -> str:
         html = """\
                     <html>
                       <body>
-                        <h2>Le film """ + str(movie_title) + """ vient d'etre ajouté !<br></h2>
-                        <img src=""><br>
-                        <h4>Résumé:</h4>
+                        <h1>Le film '""" + str(movie_title) + """' vient d'etre ajouté !<br></h1>
+                        <img src=" """ + str(poster_url) + """ " alt="poster' width="300" height="300">
+                        <h3>Résumé:</h3>
                         <p>""" + str(summary) + """ <br></p>
                         <p><br>Ne le manquez surtout pas !</p> 
                       </body>
@@ -73,7 +73,7 @@ class Mail:
     @staticmethod
     def getMailNewMovieText(movie_title: str, summary: str) -> str:
         text = """\
-            Le film """ + str(movie_title) + """ vient d'etre ajouté !
+            Le film '""" + str(movie_title) + """' vient d'etre ajouté !
             Résumé:
             """ + str(summary) + """"
             Ne le manquez surtout pas !"""

@@ -1,11 +1,11 @@
 from plexapi.video import Video
+import MovieDB
 from YMLFiles import Configuration
 from YMLFiles import Data
 from Seacher import SearcherShows
 from Seacher import SearcherMovies
 from PlexInstance import PlexInstance
 from Mail import Mail
-import os
 import time
 
 
@@ -44,7 +44,7 @@ class PlexNotifier:
                 i = 1
                 self.searchNewEpisodes()
                 self.searchNewMovies()
-            elif time.time() - currentTime > 61:
+            elif time.time() - currentTime > self.config.getIntervalSeconds():
                 self.searchNewEpisodes()
                 self.searchNewMovies()
                 currentTime = time.time()
@@ -60,13 +60,11 @@ class PlexNotifier:
                 season_nb = episode.parentIndex
                 summary = episode.summary
                 season_title = episode.show().originalTitle
-                file_path = episode.media[0].parts[0].file
-                poster_path = os.path.dirname(os.path.dirname(file_path))
-                html_src = '"' + poster_path + '"'
+                poster_url = MovieDB.getShowPoster_URL(show_title)
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouvel épisode est disponible !",
                                    self.mail.getMailNewEpisodeText(season_nb, show_title, summary),
-                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title, summary))
+                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title, summary, poster_url))
 
                 self.data.setNewEpisodeAlertStatus(id, True)
         self.data.reload()
@@ -79,13 +77,11 @@ class PlexNotifier:
             if self.data.getNewMovieAlertStatus(id) is False:
                 movie_title = movie.title
                 summary = movie.summary
-                file_path = movie.media[0].parts[0].file
-                poster_path = os.path.dirname(os.path.dirname(file_path))
-                html_src = '"' + poster_path + '"'
+                poster_url = MovieDB.getMoviePoster_URL(movie_title)
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouveau film est disponible !",
                                    self.mail.getMailNewMovieText(movie_title, summary),
-                                   self.mail.getMailNewMovieHTML(movie_title, summary))
+                                   self.mail.getMailNewMovieHTML(movie_title, summary, poster_url))
 
                 self.data.setNewMovieAlertStatus(id, True)
         self.data.reload()
