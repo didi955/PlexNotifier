@@ -18,8 +18,6 @@
   <p align="center">
     PlexNotifier is a script to run a background searcher for new movies and episodes in your Plex server
     <br />
-    <a href="https://github.com/github_username/PlexNotifier"><strong>Explore the docs »</strong></a>
-    <br />
     <br />
     <a href="https://github.com/didi955/PlexNotifier/issues">Report Bug</a>
     ·
