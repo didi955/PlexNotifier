@@ -17,6 +17,9 @@ tasks:
 categories:
   shows: "Séries TV"
   movies: "Films"
+  
+TheMovieDB:
+  api_key: ""
 
 emails:
 - client1@gmail.com
