@@ -58,14 +58,15 @@ class PlexNotifier:
                 nb = episode.index
                 show_title = episode.grandparentTitle
                 season_nb = episode.parentIndex
+                summary = episode.summary
                 season_title = episode.show().originalTitle
                 file_path = episode.media[0].parts[0].file
                 poster_path = os.path.dirname(os.path.dirname(file_path))
                 html_src = '"' + poster_path + '"'
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouvel épisode est disponible !",
-                                   self.mail.getMailNewEpisodeText(season_nb, show_title),
-                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title))
+                                   self.mail.getMailNewEpisodeText(season_nb, show_title, summary),
+                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title, summary))
 
                 self.data.setNewEpisodeAlertStatus(id, True)
         self.data.reload()
