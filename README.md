@@ -16,7 +16,7 @@
   <h3 align="center">PlexNotifier</h3>
 
   <p align="center">
-    project_description
+    PlexNotifier is a script to run a background searcher for new movies and episodes in your Plex server
     <br />
     <a href="https://github.com/github_username/PlexNotifier"><strong>Explore the docs »</strong></a>
     <br />
