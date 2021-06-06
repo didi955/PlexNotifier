@@ -2,6 +2,7 @@ from plexapi.video import Video
 from YMLFiles import Configuration
 from YMLFiles import Data
 from Seacher import SearcherShows
+from Seacher import SearcherMovies
 from PlexInstance import PlexInstance
 from Mail import Mail
 import os
@@ -22,15 +23,17 @@ class PlexNotifier:
         self.mail = Mail(self.config.getSMTPHost(), self.config.getSMTPPort(),
                          self.config.getSMTPMail(), self.config.getSMTPPassword())
         self.new_episodes = None
-        self.searcher = None
+        self.new_movies = None
+        self.searcher_shows = None
+        self.searcher_movies = None
         self.shows = None
         self.movies = None
 
     def init(self):
         self.shows = self.plexinstance.plex.library.section(self.config.getNameShowsCategory())
         self.movies = self.plexinstance.plex.library.section(self.config.getNameMoviesCategory())
-        self.searcher = SearcherShows(self.shows)
-        self.new_episodes = None
+        self.searcher_shows = SearcherShows(self.shows)
+        self.searcher_movies = SearcherMovies(self.movies)
         self.runTask()
 
     def runTask(self):
@@ -39,13 +42,15 @@ class PlexNotifier:
         while True:
             if i == 0:
                 i = 1
-                self.searchNewEpisode()
+                self.searchNewEpisodes()
+                self.searchNewMovies()
             elif time.time() - currentTime > 61:
-                self.searchNewEpisode()
+                self.searchNewEpisodes()
+                self.searchNewMovies()
                 currentTime = time.time()
 
-    def searchNewEpisode(self):
-        self.new_episodes = self.searcher.searchUnwatchedEpisodes()
+    def searchNewEpisodes(self):
+        self.new_episodes = self.searcher_shows.searchUnwatchedEpisodes()
         for episode in self.new_episodes:
             id = self.generateId(episode)
             self.data.putNewEpisode(id, False)
@@ -63,6 +68,25 @@ class PlexNotifier:
                                    self.mail.getMailNewEpisodeHTML(season_nb, show_title))
 
                 self.data.setNewEpisodeAlertStatus(id, True)
+        self.data.reload()
+
+    def searchNewMovies(self):
+        self.new_movies = self.searcher_movies.searchUnwatchedMovies()
+        for movie in self.new_movies:
+            id = self.generateId(movie)
+            self.data.putNewMovie(id, False)
+            if self.data.getNewMovieAlertStatus(id) is False:
+                movie_title = movie.title
+                summary = movie.summary
+                file_path = movie.media[0].parts[0].file
+                poster_path = os.path.dirname(os.path.dirname(file_path))
+                html_src = '"' + poster_path + '"'
+                self.mail.sendmail(self.config.getEmails(),
+                                   "[Plex] Un nouveau film est disponible !",
+                                   self.mail.getMailNewMovieText(movie_title, summary),
+                                   self.mail.getMailNewMovieHTML(movie_title, summary))
+
+                self.data.setNewMovieAlertStatus(id, True)
         self.data.reload()
 
 

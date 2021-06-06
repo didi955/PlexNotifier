@@ -32,21 +32,49 @@ class Mail:
             )
 
     @staticmethod
-    def getMailNewEpisodeHTML(season_nb: int, show_title: str) -> str:
+    def getMailNewEpisodeHTML(season_nb: int, show_title: str, summary: str) -> str:
         html = """\
                 <html>
                   <body>
-                    <p>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ + vient d'etre ajouté !<br></p>
-                       <img src="">
-                       <p><br>Ne manquez surtout pas la suite !</p> 
+                    <h2>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h2>
+                    <img src="">
+                    <h4>Résumé:</h4>
+                    <p>""" + str(summary) + """ <br></p>
+                    <p><br>Ne manquez surtout pas la suite !</p> 
                   </body>
                 </html>
                 """
         return html
 
     @staticmethod
-    def getMailNewEpisodeText(season_nb: int, show_title: str) -> str:
+    def getMailNewEpisodeText(season_nb: int, show_title: str, summary: str) -> str:
         text = """\
-        Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ + vient d'etre ajouté !
+        Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !
+        Résumé:
+        """ + str(summary) + """"
         Ne manquez surtout pas la suite !"""
+        return text
+
+    @staticmethod
+    def getMailNewMovieHTML(movie_title: str, summary: str) -> str:
+        html = """\
+                    <html>
+                      <body>
+                        <h2>Le film """ + str(movie_title) + """ vient d'etre ajouté !<br></h2>
+                        <img src=""><br>
+                        <h4>Résumé:</h4>
+                        <p>""" + str(summary) + """ <br></p>
+                        <p><br>Ne le manquez surtout pas !</p> 
+                      </body>
+                    </html>
+                    """
+        return html
+
+    @staticmethod
+    def getMailNewMovieText(movie_title: str, summary: str) -> str:
+        text = """\
+            Le film """ + str(movie_title) + """ vient d'etre ajouté !
+            Résumé:
+            """ + str(summary) + """"
+            Ne le manquez surtout pas !"""
         return text
