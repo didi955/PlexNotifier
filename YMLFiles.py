@@ -51,7 +51,7 @@ class Data:
     def putNewEpisode(self, id: str, status: bool):
         if self.contents['new']['shows']['episodes'] is None:
             self.contents['new']['shows']['episodes'] = {id: {'sent': status}}
-        elif bool(self.contents['new']['shows']['episodes']):
+        elif id not in self.contents['new']['shows']['episodes']:
             self.contents['new']['shows']['episodes'][id] = {'sent': status}
         elif self.contents['new']['shows']['episodes'][id] is None:
             self.contents['new']['shows']['episodes'][id] = {'sent': status}
@@ -59,8 +59,6 @@ class Data:
     def putNewMovie(self, id: str, status: bool):
         if self.contents['new']['movies'] is None:
             self.contents['new']['movies'] = {id: {'sent': status}}
-        elif bool(self.contents['new']['movies']):
-            self.contents['new']['movies'][id] = {'sent': status}
         elif self.contents['new']['movies'][id] is None:
             self.contents['new']['movies'][id] = {'sent': status}
 
@@ -101,6 +99,8 @@ class Data:
             return True
 
     def reload(self):
+        self.save()
+        self.file = open("data.yml", "r+", encoding='utf-8')
         self.contents = yaml.load(self.file, Loader=yaml.FullLoader)
 
     def save(self):

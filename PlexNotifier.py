@@ -1,4 +1,3 @@
-import sys
 from plexapi.video import Video
 from YMLFiles import Configuration
 from YMLFiles import Data
@@ -6,7 +5,6 @@ from Seacher import SearcherShows
 from PlexInstance import PlexInstance
 from Mail import Mail
 import os
-import threading
 import time
 
 
@@ -28,57 +26,52 @@ class PlexNotifier:
         self.shows = None
         self.movies = None
 
-    def start(self):
+    def init(self):
         self.shows = self.plexinstance.plex.library.section(self.config.getNameShowsCategory())
         self.movies = self.plexinstance.plex.library.section(self.config.getNameMoviesCategory())
         self.searcher = SearcherShows(self.shows)
         self.new_episodes = None
-        self.task()
+        self.runTask()
 
-    def task(self):
-        self.search_new_Episodes()
-
-    def search_new_Episodes(self):
-        self.new_episodes = self.searcher.searchUnwatchedEpisodes()
-        current_time = round(time.time())
+    def runTask(self):
+        i = 0
+        currentTime = time.time()
         while True:
-            if current_time - round(time.time()) == int(self.config.contents['tasks']
-                                                        ['search_new_episodes']['every_x_seconds']):
-                for episode in self.new_episodes:
-                    id = self.generateId(episode)
-                    self.data.putNewEpisode(id, False)
-                    if self.data.getNewEpisodeAlertStatus(id) is False:
-                        nb = episode.index
-                        show_title = episode.grandparentTitle
-                        season_nb = episode.parentIndex
-                        season_title = episode.show().originalTitle
-                        file_path = episode.media[0].parts[0].file
-                        poster_path = os.path.dirname(os.path.dirname(file_path))
-                        html_src = '"' + poster_path + '"'
-                        for email in self.config.getEmails():
-                            self.mail.sendmail(email,
-                                               "[Plex] Un nouvel épisode est disponible !",
-                                               self.mail.getMailNewEpisodeText(season_nb, show_title),
-                                               self.mail.getMailNewEpisodeHTML(season_nb, show_title))
-                        self.data.setNewEpisodeAlertStatus(id, True)
+            if i == 0:
+                i = 1
+                self.searchNewEpisode()
+            elif time.time() - currentTime > 61:
+                self.searchNewEpisode()
+                currentTime = time.time()
 
-                self.data.save()
+    def searchNewEpisode(self):
+        self.new_episodes = self.searcher.searchUnwatchedEpisodes()
+        for episode in self.new_episodes:
+            id = self.generateId(episode)
+            self.data.putNewEpisode(id, False)
+            if self.data.getNewEpisodeAlertStatus(id) is False:
+                nb = episode.index
+                show_title = episode.grandparentTitle
+                season_nb = episode.parentIndex
+                season_title = episode.show().originalTitle
+                file_path = episode.media[0].parts[0].file
+                poster_path = os.path.dirname(os.path.dirname(file_path))
+                html_src = '"' + poster_path + '"'
+                self.mail.sendmail(self.config.getEmails(),
+                                   "[Plex] Un nouvel épisode est disponible !",
+                                   self.mail.getMailNewEpisodeText(season_nb, show_title),
+                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title))
+
+                self.data.setNewEpisodeAlertStatus(id, True)
+        self.data.reload()
 
 
-def startBackground():
+def start():
     config = Configuration(open("config.yml", "r+", encoding='utf-8'))
     plexNotifier = PlexNotifier(Data(open("data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
                                 config.getInstanceIP(), config.getInstancePort(), config.getInstanceToken())
-    plexNotifier.start()
+    plexNotifier.init()
 
 
 if __name__ == "__main__":
-    thread = threading.Thread(target=startBackground())
-    thread.daemon = True
-    thread.start()
-    running = True
-    while running:
-        value = input()
-        if value == "stop":
-            running = False
-            sys.exit()
+    start()

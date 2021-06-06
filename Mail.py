@@ -12,11 +12,14 @@ class Mail:
         self.mail = mail
         self.password = password
 
-    def sendmail(self, target_mail: str, subject: str, text: str, html: str):
+    def sendmail(self, target_mails: list, subject: str, text: str, html: str):
+        bcc = []
+        for mail in target_mails:
+            bcc.append(mail)
         message = MIMEMultipart("alternative")
         message["Subject"] = subject
         message["From"] = self.mail
-        message["To"] = target_mail
+        message["To"] = " ,".join(target_mails)
         part1 = MIMEText(text, "plain")
         part2 = MIMEText(html, "html")
         message.attach(part1)
@@ -25,7 +28,7 @@ class Mail:
         with smtplib.SMTP_SSL(self.smtp_host, self.port, context=context) as server:
             server.login(self.mail, self.password)
             server.sendmail(
-                self.mail, target_mail, message.as_string()
+                self.mail, bcc, message.as_string()
             )
 
     @staticmethod
