@@ -133,13 +133,13 @@ Project Link: [https://github.com/didi955/PlexNotifier](https://github.com/didi9
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/didi955/repo.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/didi955/PlexNotifier.svg?style=for-the-badge
 [contributors-url]: https://github.com/didi955/PlexNotifier/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/didi955/repo.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/didi955/PlexNotifier.svg?style=for-the-badge
 [forks-url]: https://github.com/didi955/PlexNotifier/network/members
-[stars-shield]: https://img.shields.io/github/stars/didi955/repo.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/didi955/PlexNotifier.svg?style=for-the-badge
 [stars-url]: https://github.com/didi955/PlexNotifier/stargazers
-[issues-shield]: https://img.shields.io/github/issues/didi955/repo.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/didi955/PlexNotifier.svg?style=for-the-badge
 [issues-url]: https://github.com/didi955/PlexNotifier/issues
-[license-shield]: https://img.shields.io/github/license/didi955/repo.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/didi955/PlexNotifier.svg?style=for-the-badge
 [license-url]: https://github.com/didi955/PlexNotifier/blob/master/LICENSE.txt
