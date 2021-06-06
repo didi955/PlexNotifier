@@ -142,4 +142,4 @@ Project Link: [https://github.com/didi955/PlexNotifier](https://github.com/didi9
 [issues-shield]: https://img.shields.io/github/issues/didi955/PlexNotifier.svg?style=for-the-badge
 [issues-url]: https://github.com/didi955/PlexNotifier/issues
 [license-shield]: https://img.shields.io/github/license/didi955/PlexNotifier.svg?style=for-the-badge
-[license-url]: https://github.com/didi955/PlexNotifier/LICENSE
+[license-url]: https://github.com/didi955/PlexNotifier/LICENSE.txt
