@@ -59,14 +59,17 @@
 
 ### Built With
 
-* [Python3]()
-* [PlexAPI]()
-* [PyYAML]()
+* [Python3](https://www.python.org)
+* [PlexAPI](https://github.com/pkkid/python-plexapi)
+* [PyYAML](https://pyyaml.org)
+* [tmdbv3api](https://github.com/AnthonyBloomer/tmdbv3api)
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
+
+I strongly recommend the use of screen to take full advantage of your machine when running the scripts !
 
 To get a local copy up and running follow these simple steps.
 
@@ -84,6 +87,11 @@ This is an example of how to list things you need to use the software and how to
   ```sh
   pip3 install PyYAML
   ```
+  
+* tmdbv3api
+  ```sh
+  pip3 install tmdbv3api
+  ```
 
 ### Installation
 
@@ -91,7 +99,11 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/didi955/PlexNotifier.git
    ```
-2. Run the script in background
+2. Set up the 'config.yml' file 
+
+3. Modify Mail.py file to customize the appearance of emails to your liking
+
+4. Run the script in background
    ```sh
    python3 PlexNotifier.py
    ```
