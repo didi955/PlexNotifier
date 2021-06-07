@@ -101,7 +101,9 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Set up the 'config.yml' file 
 
-3. Run the script in background
+3. Modify Mail.py file to customize the appearance of emails to your liking
+
+4. Run the script in background
    ```sh
    python3 PlexNotifier.py
    ```
