@@ -1,26 +1,26 @@
 smtp:
-  host: "smtp.gmail.com"
-  port: 465
-  mail: ""
-  password: ""
+  host: "smtp.gmail.com" # host of the smtp server that you want to use for sending emails
+  port: 465 # smtp's server port
+  mail: "" # sender's email
+  password: "" # sender's password
 
 instance:
-  name: "PlexNotifier"
-  ip: ""
-  port: 32400
-  token: ""
+  name: "PlexNotifier" # Name of the instance
+  ip: "" # ip or domain name of the Plex server that you wanty to targeted
+  port: 32400 # plex server's port
+  token: "" # token of your Plex account
 
 tasks:
   search_new_episodes:
-    every_x_seconds: 600
+    every_x_seconds: 600 # Interval in seconds for the search task for new movies and series
 
 categories:
-  shows: "Séries TV"
-  movies: "Films"
+  shows: "Séries TV" # Name of the series category
+  movies: "Films" # Name of the movies category
   
 TheMovieDB:
-  api_key: ""
+  api_key: "" # API key of your TMDB account
 
-emails:
-- client1@gmail.com
+emails: # List of emails of the people you want to inform 
+- client1@gmail.com 
 - client2@gmail.com
