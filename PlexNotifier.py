@@ -1,5 +1,4 @@
 from plexapi.video import Video
-import MovieDB
 from YMLFiles import Configuration
 from YMLFiles import Data
 from Seacher import SearcherShows
@@ -55,16 +54,10 @@ class PlexNotifier:
             id = self.generateId(episode)
             self.data.putNewEpisode(id, False)
             if self.data.getNewEpisodeAlertStatus(id) is False:
-                nb = episode.index
-                show_title = episode.grandparentTitle
-                season_nb = episode.parentIndex
-                summary = episode.summary
-                season_title = episode.show().originalTitle
-                poster_url = MovieDB.getShowPoster_URL(show_title)
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouvel épisode est disponible !",
-                                   self.mail.getMailNewEpisodeText(season_nb, show_title, summary),
-                                   self.mail.getMailNewEpisodeHTML(season_nb, show_title, summary, poster_url))
+                                   self.mail.getMailNewEpisodeText(episode),
+                                   self.mail.getMailNewEpisodeHTML(episode))
 
                 self.data.setNewEpisodeAlertStatus(id, True)
         self.data.reload()
@@ -75,13 +68,10 @@ class PlexNotifier:
             id = self.generateId(movie)
             self.data.putNewMovie(id, False)
             if self.data.getNewMovieAlertStatus(id) is False:
-                movie_title = movie.title
-                summary = movie.summary
-                poster_url = MovieDB.getMoviePoster_URL(movie_title)
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouveau film est disponible !",
-                                   self.mail.getMailNewMovieText(movie_title, summary),
-                                   self.mail.getMailNewMovieHTML(movie_title, summary, poster_url))
+                                   self.mail.getMailNewMovieText(movie),
+                                   self.mail.getMailNewMovieHTML(movie))
 
                 self.data.setNewMovieAlertStatus(id, True)
         self.data.reload()

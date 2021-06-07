@@ -2,6 +2,10 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from plexapi.video import Episode
+from plexapi.video import Movie
+
+import MovieDB
 
 
 class Mail:
@@ -32,7 +36,13 @@ class Mail:
             )
 
     @staticmethod
-    def getMailNewEpisodeHTML(season_nb: int, show_title: str, summary: str, poster_url) -> str:
+    def getMailNewEpisodeHTML(episode: Episode) -> str:
+        nb = episode.index
+        show_title = episode.grandparentTitle
+        season_nb = episode.parentIndex
+        summary = episode.summary
+        season_title = episode.show().originalTitle
+        poster_url = MovieDB.getShowPoster_URL(show_title)
         html = """\
                 <html>
                   <body>
@@ -47,7 +57,12 @@ class Mail:
         return html
 
     @staticmethod
-    def getMailNewEpisodeText(season_nb: int, show_title: str, summary: str) -> str:
+    def getMailNewEpisodeText(episode: Episode) -> str:
+        nb = episode.index
+        show_title = episode.grandparentTitle
+        season_nb = episode.parentIndex
+        summary = episode.summary
+        season_title = episode.show().originalTitle
         text = """\
         Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !
         Résumé:
@@ -56,7 +71,10 @@ class Mail:
         return text
 
     @staticmethod
-    def getMailNewMovieHTML(movie_title: str, summary: str, poster_url) -> str:
+    def getMailNewMovieHTML(movie: Movie) -> str:
+        movie_title = movie.title
+        summary = movie.summary
+        poster_url = MovieDB.getMoviePoster_URL(movie_title)
         html = """\
                     <html>
                       <body>
@@ -71,7 +89,9 @@ class Mail:
         return html
 
     @staticmethod
-    def getMailNewMovieText(movie_title: str, summary: str) -> str:
+    def getMailNewMovieText(movie: Movie) -> str:
+        movie_title = movie.title
+        summary = movie.summary
         text = """\
             Le film '""" + str(movie_title) + """' vient d'etre ajouté !
             Résumé:
