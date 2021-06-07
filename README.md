@@ -69,6 +69,7 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
+I strongly recommend the use of screen to take full advantage of your machine when running the scripts !
 To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
