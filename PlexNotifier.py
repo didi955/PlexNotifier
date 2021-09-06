@@ -12,8 +12,7 @@ class PlexNotifier:
 
     @staticmethod
     def generateId(video: Video):
-        id = str(video.ratingKey)
-        return id
+        return str(video.ratingKey)
 
     def __init__(self, data: Data, config: Configuration, name: str, ip: str, port: int, token: str):
         self.config = config
