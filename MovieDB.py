@@ -2,6 +2,7 @@ from tmdbv3api import TMDb
 from tmdbv3api import Movie
 from tmdbv3api import TV
 from YMLFiles import Configuration
+import os
 
 CONFIGURATION = Configuration(open("config.yml", "r+", encoding='utf-8'))
 KEY = CONFIGURATION.getTheMovieDBAPIKey()

@@ -40,14 +40,16 @@ class Mail:
         nb = episode.index
         show_title = episode.grandparentTitle
         season_nb = episode.parentIndex
+        paths = episode.locations
         summary = episode.summary
         season_title = episode.show().originalTitle
-        poster_url = MovieDB.getShowPoster_URL(show_title)
+        path_split = paths[0].split("/")
+        poster_path = MovieDB.getShowPoster_URL(show_title)
         html = """\
                 <html>
                   <body>
                     <h1>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h1>
-                    <img src=" """ + str(poster_url) + """ " alt="poster' width="300" height="300">
+                    <img src=" """ + str(poster_path) + """ " alt="poster' width="300" height="300">
                     <h3>Résumé:</h3>
                     <p>""" + str(summary) + """ <br></p>
                     <p><br>Ne manquez surtout pas la suite !</p> 
