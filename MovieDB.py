@@ -1,21 +1,21 @@
-from tmdbv3api import TMDb
 from tmdbv3api import Movie
+from tmdbv3api import TMDb
 from tmdbv3api import TV
+
 from YMLFiles import Configuration
-import os
 
-CONFIGURATION = Configuration(open("config.yml", "r+", encoding='utf-8'))
-KEY = CONFIGURATION.getTheMovieDBAPIKey()
 
-tmdb = TMDb()
-tmdb.language = 'fr'
-tmdb.api_key = KEY
+def init(configPath):
+    config = Configuration(open(configPath, "r+", encoding='utf-8'))
+    key = config.getTheMovieDBAPIKey()
 
-movie = Movie()
-tv = TV()
+    tmdb = TMDb()
+    tmdb.language = 'fr'
+    tmdb.api_key = key
 
 
 def getShowPoster_URL(title: str):
+    tv = TV()
     search = tv.search(title)
     if search:
         res = search[0]
@@ -25,6 +25,7 @@ def getShowPoster_URL(title: str):
 
 
 def getMoviePoster_URL(title: str):
+    movie = Movie()
     search = movie.search(title)
     if search:
         res = search[0]

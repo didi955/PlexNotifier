@@ -1,18 +1,20 @@
+import time
+
 from plexapi.video import Video
+
+from Mail import *
+from PlexInstance import PlexInstance
+from Seacher import SearcherMovies
+from Seacher import SearcherShows
 from YMLFiles import Configuration
 from YMLFiles import Data
-from Seacher import SearcherShows
-from Seacher import SearcherMovies
-from PlexInstance import PlexInstance
-from Mail import Mail
-import time
 
 
 class PlexNotifier:
 
     @staticmethod
     def generateId(video: Video):
-        return str(video.ratingKey).replace("'", '')
+        return str(video.ratingKey)
 
     def __init__(self, data: Data, config: Configuration, name: str, ip: str, port: int, token: str):
         self.config = config
@@ -32,6 +34,7 @@ class PlexNotifier:
         self.movies = self.plexinstance.plex.library.section(self.config.getNameMoviesCategory())
         self.searcher_shows = SearcherShows(self.shows)
         self.searcher_movies = SearcherMovies(self.movies)
+        MovieDB.init(self.config.file.name)
         self.runTask()
 
     def runTask(self):
@@ -76,10 +79,15 @@ class PlexNotifier:
         self.data.reload()
 
 
+PLEXNOTIFIERS = []
+
+
 def start():
-    config = Configuration(open("config.yml", "r+", encoding='utf-8'))
-    plexNotifier = PlexNotifier(Data(open("data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
+    config = Configuration(open("/home/dylan/plexNotifier/config.yml", "r+", encoding='utf-8'))
+    plexNotifier = PlexNotifier(Data(open("/home/dylan/plexNotifier/data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
                                 config.getInstanceIP(), config.getInstancePort(), config.getInstanceToken())
+
+    PLEXNOTIFIERS.append(plexNotifier)
     plexNotifier.init()
 
 

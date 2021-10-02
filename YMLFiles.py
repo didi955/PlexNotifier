@@ -107,11 +107,13 @@ class Data:
             return True
 
     def reload(self):
+        path = self.file.name
         self.save()
-        self.file = open("data.yml", "r+", encoding='utf-8')
+        self.file = open(path, "r+", encoding='utf-8')
         self.contents = yaml.load(self.file, Loader=yaml.FullLoader)
 
     def save(self):
+        path = self.file.name
         self.file.close()
-        os.remove("data.yml")
-        yaml.dump(self.contents, open("data.yml", "w"))
+        os.remove(path)
+        yaml.dump(self.contents, open(path, "w"))
