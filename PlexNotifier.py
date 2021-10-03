@@ -83,8 +83,8 @@ PLEXNOTIFIERS = []
 
 
 def start():
-    config = Configuration(open("/home/dylan/plexNotifier/config.yml", "r+", encoding='utf-8'))
-    plexNotifier = PlexNotifier(Data(open("/home/dylan/plexNotifier/data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
+    config = Configuration(open("config.yml", "r+", encoding='utf-8'))
+    plexNotifier = PlexNotifier(Data(open("data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
                                 config.getInstanceIP(), config.getInstancePort(), config.getInstanceToken())
 
     PLEXNOTIFIERS.append(plexNotifier)
