@@ -1,4 +1,3 @@
-
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -52,10 +51,10 @@
 
 ### Built With
 
-  * [Python3](https://www.python.org)
-  * [PlexAPI](https://github.com/pkkid/python-plexapi)
-  * [PyYAML](https://pyyaml.org)
-  * [tmdbv3api](https://github.com/AnthonyBloomer/tmdbv3api)
+*   [Python3](https://www.python.org)
+*   [PlexAPI](https://github.com/pkkid/python-plexapi)
+*   [PyYAML](https://pyyaml.org)
+*   [tmdbv3api](https://github.com/AnthonyBloomer/tmdbv3api)
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -68,33 +67,33 @@ To get a local copy up and running follow these simple steps.
 
 This is an example of how to list things you need to use the software and how to install them.
 
- * Python3 minimum
+*   Python3 minimum
 
- * PlexAPI
+*   PlexAPI
   ```sh
   pip3 install plexapi
   ```
- * PyYAML
+*   PyYAML
   ```sh
   pip3 install PyYAML
   ```
   
- * tmdbv3api
+*   tmdbv3api
   ```sh
   pip3 install tmdbv3api
   ```
 
 ### Installation
 
-1. Clone the repo
+1.  Clone the repo
    ```sh
    git clone https://github.com/didi955/PlexNotifier.git
    ```
-2. Set up the 'config.yml' file 
+2.  Set up the 'config.yml' file 
 
-3. Modify Mail.py file to customize the appearance of emails to your liking
+3.  Modify Mail.py file to customize the appearance of emails to your liking
 
-4. Run the script in background
+4.  Run the script in background
    ```sh
    python3 PlexNotifier.py
    ```
@@ -109,11 +108,11 @@ See the [open issues](https://github.com/didi955/PlexNotifier/issues) for a list
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
 
 <!-- LICENSE -->
 ## License
