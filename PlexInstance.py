@@ -4,7 +4,10 @@ from plexapi.server import PlexServer
 class PlexInstance:
 
     def __init__(self, name: str, ip: str, port: int, token: str):
-        """Constructor that creates a PlexInstance from specified parameters.
+        """
+        Constructor that creates a PlexInstance from specified parameters.
+
+        -- PlexInstance is the instance that target a specific Plex server.
 
         :param name: Name of the Plex instance
         :param ip: IP address of the Plex instance

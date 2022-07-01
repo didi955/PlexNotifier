@@ -5,7 +5,10 @@ import os
 class Configuration:
 
     def __init__(self, file):
-        """Constructor that loads the configuration file
+        """
+        Constructor that loads the configuration file
+
+        -- Basic config object structure
 
         :param file: The configuration file
         """
@@ -114,7 +117,7 @@ class Data:
         path = self.file.name
         self.save()
         self.file = open(path, "r+", encoding='utf-8')
-        self.contents = yaml.load(self.file, Loader=yaml.FullLoader)
+        self.contents = yaml.safe_load(self.file)
 
     def save(self):
         path = self.file.name

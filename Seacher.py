@@ -1,7 +1,10 @@
 class SearcherShows:
 
     def __init__(self, library):
-        """Constructor that creates a Searcher instance.
+        """
+        Constructor that creates a Searcher instance.
+
+        -- Searcher is the instance of the process that searchs for new content in the libraries.
 
         :param library: The library to search in.
         """
