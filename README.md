@@ -3,7 +3,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Apache 2.0 License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -118,7 +118,7 @@ Contributions are what make the open source community such an amazing place to b
 <!-- LICENSE -->
 ## License
 
-Distributed under the ******** See `LICENSE` for more information.
+Distributed under the Apache License 2.0 See `LICENSE` for more information.
 
 <!-- CONTACT -->
 ## Contact
@@ -138,4 +138,4 @@ Project Link: [https://github.com/didi955/PlexNotifier](https://github.com/didi9
 [issues-shield]: https://img.shields.io/github/issues/didi955/PlexNotifier.svg?style=for-the-badge
 [issues-url]: https://github.com/didi955/PlexNotifier/issues
 [license-shield]: https://img.shields.io/github/license/didi955/PlexNotifier.svg?style=for-the-badge
-[license-url]: https://github.com/didi955/PlexNotifier/blob/master/LICENSE.txt
+[license-url]: https://github.com/didi955/PlexNotifier/blob/master/LICENSE
