@@ -89,10 +89,8 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/didi955/PlexNotifier.git
    ```
-2.  Set up the 'config.yml' file 
-
+2.  Set up the 'config.yml' file
 3.  Modify Mail.py file to customize the appearance of emails to your liking
-
 4.  Run the script in background
    ```sh
    python3 PlexNotifier.py

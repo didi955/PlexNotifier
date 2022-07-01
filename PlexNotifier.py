@@ -16,7 +16,6 @@ class PlexNotifier:
     def generateId(video: Video):
         return str(video.ratingKey)
 
-    """Constructor that creates a PlexNotifier instance. """
     def __init__(self, data: Data, config: Configuration, name: str, ip: str, port: int, token: str):
         self.config = config
         self.plexinstance = PlexInstance(name, ip, port, token)
