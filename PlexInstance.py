@@ -3,10 +3,15 @@ from plexapi.server import PlexServer
 
 class PlexInstance:
 
-    """
-    Constructor that creates a PlexInstance from specified parameters.
-    """
     def __init__(self, name: str, ip: str, port: int, token: str):
+        """
+        Constructor that creates a PlexInstance from specified parameters.
+
+        :param name: Name of the Plex instance
+        :param ip: IP address of the Plex instance
+        :param port: Port of the Plex instance
+        :param token: Token of the Plex instance
+        """
         self.name = name
         self.ip = ip
         self.port = port

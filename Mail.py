@@ -9,10 +9,15 @@ import MovieDB
 
 class Mail:
 
-    """
-    Constructor to initialize mail object
-    """
     def __init__(self, smtp_host: str, port: int, mail: str, password: str):
+        """
+        Constructor to initialize mail object
+
+        :param smtp_host: SMTP host
+        :param port: SMTP port
+        :param mail: Mail address
+        :param password: Password
+        """
         self.smtp_host = smtp_host
         self.port = port
         self.mail = mail

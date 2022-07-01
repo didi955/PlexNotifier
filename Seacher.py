@@ -1,9 +1,10 @@
 class SearcherShows:
 
-    """
-    Constructor that creates a Searcher instance.
-    """
     def __init__(self, library):
+        """
+        Constructor that creates a Searcher instance.
+        :param library: The library to search in.
+        """
         self.library = library
 
     def searchUnwatchedEpisodes(self):
