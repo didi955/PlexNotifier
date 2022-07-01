@@ -17,8 +17,7 @@ class PlexNotifier:
         return str(video.ratingKey)
 
     def __init__(self, data: Data, config: Configuration, name: str, ip: str, port: int, token: str):
-        """
-        Constructor that creates a new PlexNotifier instance.
+        """Constructor that creates a new PlexNotifier instance.
 
         :param data: file containing datas
         :param config: config file

@@ -5,8 +5,7 @@ import os
 class Configuration:
 
     def __init__(self, file):
-        """
-        Constructor that loads the configuration file
+        """Constructor that loads the configuration file
 
         :param file: The configuration file
         """
@@ -57,7 +56,7 @@ class Data:
 
     def __init__(self, file):
         self.file = file
-        self.contents = yaml.load(self.file, Loader=yaml.FullLoader)
+        self.contents = yaml.safe_load(self.file)
 
     def putNewEpisode(self, id: str, status: bool):
         if self.contents['new']['shows']['episodes'] is None:
