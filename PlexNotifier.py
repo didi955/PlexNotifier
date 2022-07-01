@@ -1,8 +1,8 @@
 import time
 
 from plexapi.video import Video
-
-from Mail import *
+import MovieDB
+from Mail import Mail
 from PlexInstance import PlexInstance
 from Seacher import SearcherMovies
 from Seacher import SearcherShows
@@ -15,6 +15,10 @@ class PlexNotifier:
     @staticmethod
     def generateId(video: Video):
         return str(video.ratingKey)
+
+    """
+    Constructor that creates a PlexNotifier instance.
+    """
 
     def __init__(self, data: Data, config: Configuration, name: str, ip: str, port: int, token: str):
         self.config = config
@@ -39,18 +43,18 @@ class PlexNotifier:
 
     def runTask(self):
         i = 0
-        currentTime = time.time()
+        current_time = time.time()
         while True:
             if i == 0:
                 i = 1
-                self.searchNewEpisodes()
-                self.searchNewMovies()
-            elif time.time() - currentTime > self.config.getIntervalSeconds():
-                self.searchNewEpisodes()
-                self.searchNewMovies()
-                currentTime = time.time()
+                self.search_new_episodes()
+                self.search_new_movies()
+            elif time.time() - current_time > self.config.getIntervalSeconds():
+                self.search_new_episodes()
+                self.search_new_movies()
+                current_time = time.time()
 
-    def searchNewEpisodes(self):
+    def search_new_episodes(self):
         self.new_episodes = self.searcher_shows.searchUnwatchedEpisodes()
         for episode in self.new_episodes:
             id = self.generateId(episode)
@@ -58,13 +62,13 @@ class PlexNotifier:
             if self.data.getNewEpisodeAlertStatus(id) is False:
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouvel épisode est disponible !",
-                                   self.mail.getMailNewEpisodeText(episode),
-                                   self.mail.getMailNewEpisodeHTML(episode))
+                                   self.mail.get_mail_new_episode_text(episode),
+                                   self.mail.get_mail_new_episode_html(episode))
 
                 self.data.setNewEpisodeAlertStatus(id, True)
         self.data.reload()
 
-    def searchNewMovies(self):
+    def search_new_movies(self):
         self.new_movies = self.searcher_movies.searchUnwatchedMovies()
         for movie in self.new_movies:
             id = self.generateId(movie)
@@ -72,8 +76,8 @@ class PlexNotifier:
             if self.data.getNewMovieAlertStatus(id) is False:
                 self.mail.sendmail(self.config.getEmails(),
                                    "[Plex] Un nouveau film est disponible !",
-                                   self.mail.getMailNewMovieText(movie),
-                                   self.mail.getMailNewMovieHTML(movie))
+                                   self.mail.get_mail_new_movie_text(movie),
+                                   self.mail.get_mail_new_movie_html(movie))
 
                 self.data.setNewMovieAlertStatus(id, True)
         self.data.reload()
@@ -83,12 +87,13 @@ PLEXNOTIFIERS = []
 
 
 def start():
-    config = Configuration(open("/home/dylan/plexNotifier/config.yml", "r+", encoding='utf-8'))
-    plexNotifier = PlexNotifier(Data(open("/home/dylan/plexNotifier/data.yml", "r+", encoding='utf-8')), config, config.getInstanceName(),
-                                config.getInstanceIP(), config.getInstancePort(), config.getInstanceToken())
+    config = Configuration(open("config.yml", "r+", encoding='utf-8'))
+    plex_notifier = PlexNotifier(Data(open("data.yml", "r+", encoding='utf-8')), config,
+                                 config.getInstanceName(),
+                                 config.getInstanceIP(), config.getInstancePort(), config.getInstanceToken())
 
-    PLEXNOTIFIERS.append(plexNotifier)
-    plexNotifier.init()
+    PLEXNOTIFIERS.append(plex_notifier)
+    plex_notifier.init()
 
 
 if __name__ == "__main__":

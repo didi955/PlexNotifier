@@ -4,9 +4,12 @@ import os
 
 class Configuration:
 
+    """
+    Constructor that loads the configuration file
+    """
     def __init__(self, file):
         self.file = file
-        self.contents = yaml.load(self.file, Loader=yaml.FullLoader)
+        self.contents = yaml.safe_load(self.file)
 
     def getSMTPPort(self):
         return self.contents['smtp']['port']

@@ -3,6 +3,9 @@ from plexapi.server import PlexServer
 
 class PlexInstance:
 
+    """
+    Constructor that creates a PlexInstance from specified parameters.
+    """
     def __init__(self, name: str, ip: str, port: int, token: str):
         self.name = name
         self.ip = ip

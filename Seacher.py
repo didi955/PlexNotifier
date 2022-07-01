@@ -1,5 +1,8 @@
 class SearcherShows:
 
+    """
+    Constructor that creates a Searcher instance.
+    """
     def __init__(self, library):
         self.library = library
 

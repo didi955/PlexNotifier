@@ -4,12 +4,14 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from plexapi.video import Episode
 from plexapi.video import Movie
-
 import MovieDB
 
 
 class Mail:
 
+    """
+    Constructor to initialize mail object
+    """
     def __init__(self, smtp_host: str, port: int, mail: str, password: str):
         self.smtp_host = smtp_host
         self.port = port
@@ -36,19 +38,16 @@ class Mail:
             )
 
     @staticmethod
-    def getMailNewEpisodeHTML(episode: Episode) -> str:
+    def get_mail_new_episode_html(episode: Episode) -> str:
         nb = episode.index
         show_title = episode.grandparentTitle
         season_nb = episode.parentIndex
-        paths = episode.locations
         summary = episode.summary
-        season_title = episode.show().originalTitle
-        path_split = paths[0].split("/")
         poster_path = MovieDB.getShowPoster_URL(show_title)
         html = """\
                 <html>
                   <body>
-                    <h1>Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h1>
+                    <h1>L'épisode """ + str(nb) + """ de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !<br></h1>
                     <img src=" """ + str(poster_path) + """ " alt="poster' width="300" height="300">
                     <h3>Résumé:</h3>
                     <p>""" + str(summary) + """ <br></p>
@@ -59,21 +58,20 @@ class Mail:
         return html
 
     @staticmethod
-    def getMailNewEpisodeText(episode: Episode) -> str:
+    def get_mail_new_episode_text(episode: Episode) -> str:
         nb = episode.index
         show_title = episode.grandparentTitle
         season_nb = episode.parentIndex
         summary = episode.summary
-        season_title = episode.show().originalTitle
         text = """\
-        Le dernier épisode de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !
+        L'épisode """ + str(nb) + """ de la """ + str(season_nb) + """e saison de """ + str(show_title) + """ vient d'etre ajouté !
         Résumé:
         """ + str(summary) + """"
         Ne manquez surtout pas la suite !"""
         return text
 
     @staticmethod
-    def getMailNewMovieHTML(movie: Movie) -> str:
+    def get_mail_new_movie_html(movie: Movie) -> str:
         movie_title = movie.title
         summary = movie.summary
         poster_url = MovieDB.getMoviePoster_URL(movie_title)
@@ -91,7 +89,7 @@ class Mail:
         return html
 
     @staticmethod
-    def getMailNewMovieText(movie: Movie) -> str:
+    def get_mail_new_movie_text(movie: Movie) -> str:
         movie_title = movie.title
         summary = movie.summary
         text = """\
