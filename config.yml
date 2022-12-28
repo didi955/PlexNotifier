@@ -12,7 +12,7 @@ instance:
 
 tasks:
   search_new_episodes:
-    every_x_seconds: 600 # Interval in seconds for the search task for new movies and series
+    every_seconds: 600 # Interval in seconds for the search task for new movies and series
 
 categories:
   shows: "Séries TV" # Name of the series category
